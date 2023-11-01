@@ -1,1 +1,18 @@
+fail
+(set-option :sat.threads 2)
+(assert-soft false)
+(check-sat)
 
+commmand
+z3san small.smt2
+
+locations
+before revision:7afa4d0
+fixed revision:e8e636c
+buggy locations:
+file:src/sat/sat_parallel.cpp; method:void parallel::vector_pool::next(unsigned& index)
+file:src/sat/sat_parallel.cpp; method:void parallel::vector_pool::end_add_vector()
+file:src/sat/sat_parallel.cpp; method:parallel::~parallel()
+file:src/sat/sat_parallel.cpp; method:void parallel::init_solvers(solver& s, unsigned num_extra_solvers)
+file:src/sat/sat_parallel.cpp; method:void parallel::share_clause(solver& s, clause const& c)
+file:src/sat/sat_parallel.cpp; method:void parallel::_to_solver(solver& s)
