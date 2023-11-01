@@ -1,1 +1,17 @@
+fail
+(set-logic QF_NIA)
+(declare-fun TRUE () Int)
+(declare-fun FALSE () Int)
+(assert (not (<= (* (- FALSE (- (* TRUE TRUE))) FALSE) (- (+ (mod (abs FALSE) (+ (int.pow2 TRUE) (abs FALSE))) (int.pow2 (abs (int.pow2 FALSE))))))))
+(check-sat)
 
+command
+./cvc5 ./small.smt2 --check-models
+
+locations
+before revision:95e9f1b
+fixed revision:e13b964
+buggy locations:
+file:src/theory/arith/nl/nonlinear_extension.cpp; method:NonlinearExtension::NonlinearExtension(Env& env, TheoryArith& containing)
+file:src/theory/arith/nl/nonlinear_extension.cpp; method:void NonlinearExtension::preRegisterTerm(TNode n)
+file:src/theory/arith/nl/nonlinear_extension.cpp; method:void NonlinearExtension::checkFullEffort(std::map<Node, Node>& arithModel, const std::set<Node>& termSet)
