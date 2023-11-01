@@ -1,1 +1,15 @@
+fail
+(declare-fun a () (_ BitVec 32))
+(define-fun b () (_ BitVec 32) ((_ rotate_left 7) a))
+(assert (= b b))
+(apply bit-blast)
 
+command
+z3 small.smt2
+
+locations
+before revision:d5fe4b0
+fixed revision:0859be5
+buggy locations:
+file:src/ast/rewriter/bit_blaster/bit_blaster_rewriter.cpp; method:br_status reduce_app(func_decl * f, unsigned num, expr * const * args, expr_ref & result, proof_ref & result_pr)
+file:src/sat/smt/arith_solver.cpp; method:sat::check_result solver::check()
