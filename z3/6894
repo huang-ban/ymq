@@ -1,1 +1,15 @@
+fail
+(set-logic QF_BV)
+(declare-const x Bool)
+(declare-fun z () (_ BitVec 1))
+(assert (= (_ bv1 1) ((_ extract 0 0) (ite (bvsle (ite (and (= z (_ bv1 1)) (= (_ bv1 1) (ite x (_ bv0 1) (bvshl (_ bv1 1) z)))) (_ bv1 1) (_ bv0 1)) (_ bv1 1)) (_ bv1 2) ((_ zero_extend 1) (ite x (_ bv0 1) (bvshl (_ bv1 1) z)))))))
+(check-sat)
 
+command
+./z3 ./small.smt2
+
+locations(un)
+before revision:3aea4eb
+fixed revision:50d76a2
+buggy locations:
+file:src/ast/simplifiers/solve_context_eqs.cpp; method:void solve_context_eqs::collect_nested_equalities(dependent_expr const& df, expr_mark& visited, dep_eq_vector& eqs)
