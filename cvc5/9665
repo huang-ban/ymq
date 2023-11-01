@@ -1,1 +1,23 @@
+fail
+(define-sort NaturalNumber () Int)
+(declare-const n NaturalNumber)
+(assert (and
+    (< (* n (select (as const (Array Int Int)) 0)) 500) ;upper limit condition
+                ;n is odd
+    (or (= (mod n 2) 0) (= (mod n 7) 0))
+))
+(check-sat)
+(exit)
 
+command
+cvc5 -q small.smt2
+
+locations
+before revision:7a10de6
+fixed revision:a4b336d
+buggy locations:
+file:src/parser/smt2/smt2.cpp; method:Term Smt2State::applyParseOp(const ParseOp& p, std::vector<Term>& args)
+file:src/parser/smt2/smt2_term_parser.cpp; method:Term Smt2TermParser::parseTerm()
+file:src/theory/strings/regexp_entail.cpp; method:bool RegExpEntail::isConstRegExp(TNode t)
+file:src/theory/strings/regexp_entail.cpp; method:bool RegExpEntail::regExpIncludes(Node r1, Node r2, std::map<std::pair<Node, Node>, bool>& cache)
+file:src/theory/strings/regexp_eval.cpp; method:bool RegExpEval::canEvaluate(const Node& r)
